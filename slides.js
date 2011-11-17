@@ -9,7 +9,7 @@
   URL: http://code.google.com/p/io-2011-slides/
 */
 
-var PERMANENT_URL_PREFIX = 'https://bruntonspall.github.com/html5-slides/';
+var PERMANENT_URL_PREFIX = 'http://bruntonspall.github.com/html5-slides/';
 
 var SLIDE_CLASSES = ['far-past', 'past', 'current', 'next', 'far-next'];
 
