@@ -43,7 +43,9 @@ var curSlide;
 			this.onclick = reset;
 			countdown();
 			countInterval = setInterval(countdown, 1000);
-			advanceInterval = setInterval(nextSlide, 15000);
+      if (obj.className.find('advance') != -1) {
+			  advanceInterval = setInterval(nextSlide, 15000);
+      }
 		}
 		obj.style.cursor = 'pointer';
 	}
