@@ -32,7 +32,7 @@
 
   <body style='display: none'>
 	<!-- This is the lightning timer, it autoadvances slides every 15 seconds -->
-	<div id="timer" class="floating">5:00</div>
+	<div id="timer" class="floating advance">5:00</div>
 
     <section class='slides layout-regular'>
 
@@ -120,6 +120,28 @@
       </article>
 
       <article>
+        <h3>
+          Slide with bullet points that builds
+        </h3>
+        <ul class="build">
+          <li>
+            This is an example of a list
+          </li>
+          <li>
+            The list items fade in
+          </li>
+          <li>
+            Last one!
+          </li>
+        </ul>
+
+        <div class="build">
+          <p>Any element with child nodes can build.</p>
+          <p>It doesn't have to be a list.</p>
+        </div>
+      </article>
+
+      <article onslideenter="var interval = null; function autobuild(){if (!buildNextItem()) clearInterval(interval)}; interval = setInterval(autobuild, 1000);">
         <h3>
           Slide with bullet points that builds
         </h3>
