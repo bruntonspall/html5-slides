@@ -9,7 +9,7 @@
   URL: http://code.google.com/p/io-2011-slides/
 */
 
-var PERMANENT_URL_PREFIX = 'http://bruntonspall.github.com/html5-slides/';
+var PERMANENT_URL_PREFIX = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/';
 
 var SLIDE_CLASSES = ['far-past', 'past', 'current', 'next', 'far-next'];
 
@@ -18,7 +18,7 @@ var PM_TOUCH_SENSITIVITY = 15;
 var curSlide;
 
 /* ---------------------------------------------------------------------- */
-/* Slide Timer and Autoadvance 
+/* Slide Timer and Autoadvance
  * javascript inspired by lightningtimer.net from Simon Willison          */
 (function (view) {
 	var count = 10;
@@ -197,12 +197,12 @@ if (objCtr.defineProperty) {
 /* Slide movement */
 
 function getSlideEl(no) {
-  if ((no < 0) || (no >= slideEls.length)) { 
+  if ((no < 0) || (no >= slideEls.length)) {
     return null;
   } else {
     return slideEls[no];
   }
-};
+}
 
 function updateSlideClass(slideNo, className) {
   var el = getSlideEl(slideNo);
@@ -220,7 +220,7 @@ function updateSlideClass(slideNo, className) {
       el.classList.remove(SLIDE_CLASSES[i]);
     }
   }
-};
+}
 
 function updateSlides() {
   for (var i = 0; i < slideEls.length; i++) {
@@ -231,14 +231,14 @@ function updateSlides() {
       case curSlide - 1:
         updateSlideClass(i, 'past');
         break;
-      case curSlide: 
+      case curSlide:
         updateSlideClass(i, 'current');
         break;
       case curSlide + 1:
-        updateSlideClass(i, 'next');      
+        updateSlideClass(i, 'next');
         break;
       case curSlide + 2:
-        updateSlideClass(i, 'far-next');      
+        updateSlideClass(i, 'far-next');
         break;
       default:
         updateSlideClass(i);
@@ -260,10 +260,28 @@ function updateSlides() {
   
   if (isChromeVoxActive()) {
     speakAndSyncToNode(slideEls[curSlide]);
-  }  
+  }
+
+  console.log("At slide "+curSlide+" with classes: "+slideEls[curSlide].classList);
+  console.log(getSlideEl(curSlide).dataset);
+  if (slideEls[curSlide].classList.contains("auto")) {
+    var timeout = getSlideEl(curSlide).dataset["buildTime"];
+    autoBuildSlide(timeout || 1000);
+  }
 
   updateHash();
-};
+}
+
+function autoBuildSlide(timeout) {
+  console.log("Starting autobuild every "+timeout+"ms");
+  function doBuild() {
+    console.log("autobuild");
+    if (buildNextItem()) {
+      setTimeout(doBuild, timeout);
+    }
+  }
+  doBuild();
+}
 
 function buildNextItem() {
   var toBuild  = slideEls[curSlide].querySelectorAll('.to-build');
@@ -638,6 +656,9 @@ function makeBuildLists() {
 
 function handleDomLoaded() {
   slideEls = document.querySelectorAll('section.slides > article');
+  for (i=0; i < slideEls.length, s=slideEls[i]; ++i) {
+    console.log("Slide "+i+" with classes: "+s.classList);
+  }
 
   addFontStyle();
   addGeneralStyle();

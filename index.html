@@ -141,26 +141,21 @@
         </div>
       </article>
 
-      <article onslideenter="var interval = null; function autobuild(){if (!buildNextItem()) clearInterval(interval)}; interval = setInterval(autobuild, 1000);">
+      <article class="auto" data-build-time=3000>
         <h3>
-          Slide with bullet points that builds
+          Slide with bullet points that automatically builds
         </h3>
         <ul class="build">
           <li>
-            This is an example of a list
+            This is an example of an auto list
           </li>
           <li>
-            The list items fade in
+            The list items fade in after 1 second by default
           </li>
           <li>
-            Last one!
+            The timer is adjustable with a data element
           </li>
         </ul>
-
-        <div class="build">
-          <p>Any element with child nodes can build.</p>
-          <p>It doesn't have to be a list.</p>
-        </div>
       </article>
 
       <article class='smaller'>
