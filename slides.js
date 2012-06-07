@@ -262,8 +262,6 @@ function updateSlides() {
     speakAndSyncToNode(slideEls[curSlide]);
   }
 
-  console.log("At slide "+curSlide+" with classes: "+slideEls[curSlide].classList);
-  console.log(getSlideEl(curSlide).dataset);
   if (slideEls[curSlide].classList.contains("auto")) {
     var timeout = getSlideEl(curSlide).dataset["buildTime"];
     autoBuildSlide(timeout || 1000);
@@ -273,9 +271,7 @@ function updateSlides() {
 }
 
 function autoBuildSlide(timeout) {
-  console.log("Starting autobuild every "+timeout+"ms");
   function doBuild() {
-    console.log("autobuild");
     if (buildNextItem()) {
       setTimeout(doBuild, timeout);
     }
@@ -656,9 +652,6 @@ function makeBuildLists() {
 
 function handleDomLoaded() {
   slideEls = document.querySelectorAll('section.slides > article');
-  for (i=0; i < slideEls.length, s=slideEls[i]; ++i) {
-    console.log("Slide "+i+" with classes: "+s.classList);
-  }
 
   addFontStyle();
   addGeneralStyle();
